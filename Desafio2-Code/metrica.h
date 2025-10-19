@@ -2,6 +2,16 @@
 #define METRICA_H
 
 class Metrica {
+
+    /*Descripcion:
+     *  Clase encargada de la medicion de recursos utilizados durante el tiempo de ejecucion del programa
+     *  basandose en el numero de iteraciones por funcionalidad requerida, y la memoria ocupada a lo largo
+     *  del tiempo de ejecucion por cada una de los tipos de datos altamente estructurados creados por nosotros.
+     *
+     *  Utiliza un costructor por defecto pues solo esta pensada para utilizar un unico objeto de la clase
+     *  Metrica para la medicion del programa completo.
+     */
+
 public:
     Metrica();
     ~Metrica();
