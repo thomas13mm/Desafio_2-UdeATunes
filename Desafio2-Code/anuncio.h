@@ -20,6 +20,8 @@ public:
     void SetPrioridad(char* priori);
     void SetMensaje_Publicitario(char* Mensaje_Publi);
     bool operator >(Anuncio &B);
+    bool operator <(Anuncio &B);
+    bool operator ==(Anuncio &B);
 
 private:
     char* Mensaje_Publicitario;
