@@ -1,27 +1,68 @@
 #include "listarp.h"
 
-ListaRP::ListaRP(Cancion* MisFavoritas_, Cancion* FavoritasSeguido_): MisFavoritas(MisFavoritas_), FavoritasSeguido(FavoritasSeguido_) {
-    CancionesPrevias=new Cancion[4];
+ListaRP::ListaRP(unsigned int TamEnUso_, Metrica &x):TamEnUso(TamEnUso_) {
+    CancionesPrevias=new Cancion[CantMaxPrevias];
+    MisFavoritas=new Cancion*[MaxSongs];
+    x.agregarMemoria(sizeof(CancionesPrevias));
 }
 
-ListaRP::~ListaRP(){
+ListaRP::~ListaRP(Metrica &x){
+    for(unsigned int i=0; i<TamEnUso; i++){
+        delete MisFavoritas[i];
+    }
     delete[] CancionesPrevias;
 }
 
-bool ListaRP::EliminarCancion(Cancion &n, Cancion *Canciones_, unsigned int TamCanciones_){
-    unsigned int IDSong=n.GetID();
-    for(unsigned int i=0; i<TamCanciones_; i++){
-        if(IDSong==Canciones_[i].GetID()){
-            cout<<"Cancion eliminada con exito"<<'\n';
+bool ListaRP::EliminarCancion(Cancion &n){
+    for(unsigned int i = 0; i<TamEnUso; i++){
+        if((this->MisFavoritas[i]->ID_Canciones)==(n.ID_Canciones)){   //deberia ser un getter de id_canciones
+            this->MisFavoritas[i]=nullptr;
             return true;
         }
     }
-    cout<<"No se pudo encontrar la cancion en su lista, por ende no se elimino"<<'\n';
     return false;
 }
 
-bool ListaRP::operator ==(ListaRP &list){
-    for(unsigned int i = 0; i< ; i++){
-        list.MisFavoritas[i] == this->MisFavoritas[i];
+bool ListaRP::AgregarCancion(Cancion &n){
+    unsigned int i=0;
+    while(i<MaxSongs){
+        if(this->MisFavoritas[i]!=nullptr){
+            this->MisFavoritas[i]=n;
+            return true;
+        }
+        i++;
     }
+    return false;
 }
+
+Cancion* ListaRP::TomarCancionPrevia(){
+    for(unsigned int n=0; n<CantMaxPrevias; n++){
+        if(this->CancionesPrevias[n]!=nullprt){
+            return this->CancionesPrevias[n];
+        }
+    }
+    cout<<"No puede regresar mas de 4 canciones"<<'\n';
+    return nullptr;
+}
+
+void ListaRP::Reproducir(Cancion &n){//podria recibir el album y el artista para intentar reproducir todo de una
+    cout<<n.Nombre<<'\n';
+    cout<<n.Ubicacion_Archivo<<'\n';
+    cout<<n.Duracion<<'\n';
+}
+
+Cancion** ListaRP::GetMisFavoritas(){
+    return this->MisFavoritas;
+}
+
+Cancion* ListaRP::GetCancionesPrevias(){
+    return this->CancionesPrevias;
+}
+
+bool ListaRP::SetFavoritasCancionesPrevias(Cancion &n) {
+    this->CancionesPrevias[indicePrevias] = &n;
+    indicePrevias = (indicePrevias + 1) % CantMaxPrevias;
+
+    return true;
+}
+

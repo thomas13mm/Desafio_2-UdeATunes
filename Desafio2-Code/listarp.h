@@ -1,35 +1,38 @@
 #ifndef LISTARP_H
 #define LISTARP_H
 #include <iostream>
+#include <cancion.h>
+#include <metrica.h>
 
 using namespace std;
 
-
 class ListaRP{    
 public:
-    ListaRP(Cancion* MisFavoritas_, Cancion* FavoritasSeguido_);
-    ~ListaRP();
-    bool EliminarCancion(Cancion &n);
-    void AgregarCancion(Cancion &n);
-    Cancion TomarCancionPrevia();
-    bool Reproducir();
+    ListaRP(unsigned int TamEnUso_,Metrica &x); //listo
+    ~ListaRP();//listo
+    bool EliminarCancion(Cancion &n);//listo
+    bool AgregarCancion(Cancion &n);//listo
+    Cancion* TomarCancionPrevia();//listo
+    bool Reproducir(Cancion &n); //listo
 
-    Cancion* GetMisFavoritas();
-    Cancion* GetFavoritasSeguido();
-    unsigned int* GetCancionesPrevias();
+    Cancion** GetMisFavoritas();//Listo
+    Cancion* GetCancionesPrevias();//listo
 
-    void SetMisFavoritas();
-    void SetFavoritasSeguido();
-    void SetFavoritasCancionesPrevias();
+    //void SetMisFavoritas();
+    //void SetFavoritasSeguido();
+    bool SetFavoritasCancionesPrevias(Cancion &n);//listo
 
-    bool operator== (ListaRP &list);
-    bool operator< ();
-    bool operator> ();
+    //bool operator== (ListaRP &list);
+    //bool operator< ();
+    //bool operator> ();
 
 private:
-    Cancion* MisFavoritas;
-    Cancion* FavoritasSeguido;
-    unsigned int* CancionesPrevias;
+    Cancion** MisFavoritas;
+    Cancion* CancionesPrevias;
+    unsigned int TamEnUso;
+    const unsigned int MaxSongs=10000;
+    const unsigned int CantMaxPrevias=4;
+    unsigned int indicePrevias = 0;
 };
 
 #endif // LISTARP_H
