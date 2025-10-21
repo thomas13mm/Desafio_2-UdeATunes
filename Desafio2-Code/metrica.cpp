@@ -2,7 +2,6 @@
 #include <iostream>
 using namespace std;
 
-// Definición de variables estáticas
 long Metrica::Iter_EliminarCancion = 0;
 long Metrica::Iter_AgregarCancion = 0;
 long Metrica::Iter_TomarCancionPrevia = 0;
