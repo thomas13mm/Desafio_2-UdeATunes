@@ -1,16 +1,43 @@
+#ifndef _CANCION_H_
+#define _CANCION_H_
 
 #include <string>
+using namespace std;
 
 class Cancion {
 private:
-
-    std::string Nombre;
-    unsigned int ID_Canciones;    // 9 dígitos
-    unsigned short Duracion;      // en segundos
-    std::string Ubicacion_Archivo;
-    unsigned int Cant_Reproducciones;
+    string nombre;
+    unsigned int idCanciones;    // 9 dígitos
+    float duracion;      // en minutos
+    string ubicacionArchivo;
+    unsigned int cantReproducciones;
 
 public:
+    Cancion(); // constructor por defecto
 
-    Cancion();
+
+    // constructor con parámetros
+    Cancion(unsigned int _idCanciones,
+            string _nombre,
+            float _duracion,
+            string _ubicacionArchivo,
+            unsigned int _cantReproducciones);
+
+    // getters
+    string get_Nombre();
+    unsigned int get_IdCanciones();
+    float get_Duracion();
+    string get_UbicacionArchivo();
+    unsigned int get_CantReproducciones();
+
+    // setters
+    void set_IdCanciones(unsigned int _idCanciones);
+    void set_Duracion(float _duracion);
+    void set_CantReproducciones(unsigned int _cantReproducciones);
+
+    // Muestra la ruta completa de la cancion, recibiendo el artista
+    void mostrarRutaCancion(bool esPremium, string nombreArtista);
+
 };
+
+#endif
