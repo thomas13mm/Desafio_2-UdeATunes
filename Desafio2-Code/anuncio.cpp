@@ -29,6 +29,10 @@ unsigned short int Anuncio::GetPrioridad(){
     return 0;
 }
 
+const char* Anuncio::getPrioridadtext(){
+    return Prioridad;
+}
+
 bool Anuncio::operator> (Anuncio &B){
     /*Descripcion:
      *  Sirve para comparar la prioridad entre anuncios para saber si un anuncio A tiene mayor prioridad que un anuncio B

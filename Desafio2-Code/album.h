@@ -12,28 +12,29 @@ public:
     Album(string Nombre, string ID_Album_, string Fecha, unsigned int Duracion, string Generos,
             unsigned short int Puntuacion, Metrica &x);
     ~Album();
-    void mostrarCanciones();
 
+    // Getters
     string getnombre();
     string getID_Album();
     string getfecha();
     unsigned int getduracion();
     string* getgeneros();
     string getselloDisquero();
-    //string getportadaRuta();
     float getpuntuacion();
     Cancion** getCanciones();
 
-    void setnombre();
-    void setID_Album();
-    void setfecha();
-    unsigned int setduracion();
-    void setgeneros();
-    void setselloDisquero();
-    //string setportadaRuta();
-    void setPuntacion();
-    void setCanciones();
+    // Setters
+    void setnombre(string Nombre);
+    void setID_Album(string ID);
+    void setfecha(string Fecha);
+    void setduracion(unsigned int Duracion);
+    void setgeneros(string g1, string g2, string g3, string g4);
+    void setselloDisquero(string sello);
+    void setPuntacion(float p);
+    void setCanciones(Cancion** canciones);
 
+    // Otros métodos
+    void mostrarCanciones();
 
 private:
     string nombre;
