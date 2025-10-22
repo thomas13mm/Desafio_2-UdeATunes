@@ -7,7 +7,7 @@ using namespace std;
 class Cancion {
 private:
     string nombre;
-    unsigned int idCanciones;    // 9 dígitos
+    string idCanciones;    // 9 dígitos
     float duracion;      // en minutos
     string ubicacionArchivo;
     unsigned int cantReproducciones;
@@ -16,8 +16,8 @@ public:
     Cancion(); // constructor por defecto
 
 
-    // constructor con parámetros
-    Cancion(unsigned int _idCanciones,
+    // constructor con parametros
+    Cancion(string _idCanciones,
             string _nombre,
             float _duracion,
             string _ubicacionArchivo,
@@ -25,13 +25,13 @@ public:
 
     // getters
     string get_Nombre();
-    unsigned int get_IdCanciones();
+    string get_IdCanciones();
     float get_Duracion();
     string get_UbicacionArchivo();
     unsigned int get_CantReproducciones();
 
     // setters
-    void set_IdCanciones(unsigned int _idCanciones);
+    void set_IdCanciones(string _idCanciones);
     void set_Duracion(float _duracion);
     void set_CantReproducciones(unsigned int _cantReproducciones);
 
