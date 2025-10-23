@@ -6,14 +6,14 @@ using namespace std;
 // Constructor por defecto: inicializa con valores seguros
 Cancion::Cancion()
     : nombre(""),
-    idCanciones(0),
+    idCanciones(""),
     duracion(0),
     ubicacionArchivo(""),
     cantReproducciones(0) {}
 
 
 // Constructor con parámetros
-Cancion::Cancion(unsigned int _idCanciones,
+Cancion::Cancion(string _idCanciones,
                  string _nombre,
                  float _duracion,
                  string _ubicacionArchivo,
@@ -26,13 +26,13 @@ Cancion::Cancion(unsigned int _idCanciones,
 
 // getters
 string Cancion::get_Nombre() { return nombre; }
-unsigned int Cancion::get_IdCanciones() { return idCanciones; }
+string Cancion::get_IdCanciones() { return idCanciones; }
 float Cancion::get_Duracion() { return duracion; }
 string Cancion::get_UbicacionArchivo() { return ubicacionArchivo; }
 unsigned int Cancion::get_CantReproducciones() { return cantReproducciones; }
 
 // setters
-void Cancion::set_IdCanciones(unsigned int _idCanciones) { idCanciones = _idCanciones; }
+void Cancion::set_IdCanciones(string _idCanciones) { idCanciones = _idCanciones; }
 void Cancion::set_Duracion(float _duracion) { duracion = _duracion; }
 void Cancion::set_CantReproducciones(unsigned int _cantReproducciones) { cantReproducciones = _cantReproducciones; }
 
