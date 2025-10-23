@@ -9,7 +9,7 @@ using namespace std;
 
 class Album{
 public:
-    Album(string Nombre, string ID_Album_, string Fecha, unsigned int Duracion, string Generos,
+    Album(string Nombre, string ID_Album_, string Fecha, float Duracion, string Generos,
             unsigned short int Puntuacion, Metrica &x);
     ~Album();
 
@@ -17,7 +17,7 @@ public:
     string getnombre();
     string getID_Album();
     string getfecha();
-    unsigned int getduracion();
+    float getduracion();
     string* getgeneros();
     string getselloDisquero();
     float getpuntuacion();
@@ -27,7 +27,7 @@ public:
     void setnombre(string Nombre);
     void setID_Album(string ID);
     void setfecha(string Fecha);
-    void setduracion(unsigned int Duracion);
+    void setduracion(float Duracion);
     void setgeneros(string g1, string g2, string g3, string g4);
     void setselloDisquero(string sello);
     void setPuntacion(float p);
@@ -40,7 +40,7 @@ private:
     string nombre;
     string ID_Album;
     string fecha;
-    unsigned int duracion; //en minutos la puse
+    float duracion; //en minutos la puse
     string generos[4];
     string selloDisquero;
     string portadaRuta;
