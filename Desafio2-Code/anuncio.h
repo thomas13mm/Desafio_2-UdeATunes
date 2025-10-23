@@ -19,6 +19,7 @@ public:
     unsigned short int GetPrioridad();
     void SetPrioridad(char* priori);
     void SetMensaje_Publicitario(char* Mensaje_Publi);
+    const char* getPrioridadtext();
     bool operator >(Anuncio &B);
     bool operator <(Anuncio &B);
     bool operator ==(Anuncio &B);
@@ -26,6 +27,7 @@ public:
 private:
     char* Mensaje_Publicitario;
     const char* Prioridad;
+
 };
 
 #endif // ANUNCIO_H

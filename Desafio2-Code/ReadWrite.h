@@ -23,6 +23,4 @@ bool readArchivo(const char* fileName) {
     return true;
 }
 
-
-
 #endif // READWRITE_H
