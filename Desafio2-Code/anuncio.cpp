@@ -31,7 +31,7 @@ unsigned short int Anuncio::GetPrioridad(){
 
 bool Anuncio::operator> (Anuncio &B){
     /*Descripcion:
-     *  Sirve para comparar la prioridad entre anuncios para saber si un anuncio a tiene mayor prioridad que un anuncio b
+     *  Sirve para comparar la prioridad entre anuncios para saber si un anuncio A tiene mayor prioridad que un anuncio B
      */
 
     if(this->GetPrioridad() > B.GetPrioridad()) return true;
@@ -39,4 +39,21 @@ bool Anuncio::operator> (Anuncio &B){
     else if(this->GetPrioridad() < B.GetPrioridad())return false;
     else{ cout<<"Imposible comparar"<<" Error de la clase Anuncio operator>"<<'\n'; return false;
     }
+}
+
+bool Anuncio::operator <(Anuncio &B){
+    /*Descripcion:
+     *  Sirve para comparar la prioridad entre anuncios para saber si un anuncio A tiene menor prioridad de un anuncio B
+     */
+
+    if(this->GetPrioridad() < B.GetPrioridad()) return true;
+    else if(this->GetPrioridad() == B.GetPrioridad())return false;
+    else if(this->GetPrioridad() > B.GetPrioridad())return false;
+    else{ cout<<"Imposible comparar"<<" Error de la clase Anuncio operator>"<<'\n'; return false;
+    }
+}
+
+bool Anuncio::operator ==(Anuncio &B){
+    if(this->GetPrioridad()==B.GetPrioridad()) return true;
+    else{return false;}
 }
