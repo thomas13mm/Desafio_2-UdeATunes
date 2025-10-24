@@ -55,8 +55,8 @@ bool Usuario::seguirUsuario(Usuario& otro) {
     const unsigned int MAX = 10000;
 
     //obtener tamaños actuales (IMPORTANTE: hacer que la clase ListaRP tenga a usuario como clase amiga)
-    unsigned int tamUso1 = MiListaRP->TamEnUso;
-    unsigned int tamUso2 = otro.get_MiListaRP()->TamEnUso;
+    unsigned int tamUso1 = MiListaRP->GetTamEnUso();
+    unsigned int tamUso2 = otro.get_MiListaRP()->GetTamEnUso();
 
     // Verificar capacidad (si no caben todas, no seguimos)
     if (tamUso1 + tamUso2 > MAX) { return false; } // no hay espacio suficiente para seguir a 'otro'
@@ -68,7 +68,7 @@ bool Usuario::seguirUsuario(Usuario& otro) {
     }
 
     // actualizar el nuevo tamaño total
-    MiListaRP->TamEnUso = tamUso1 + tamUso2;
+    MiListaRP->SetTamEnUso(tamUso1 + tamUso2);
 
 
     return true;

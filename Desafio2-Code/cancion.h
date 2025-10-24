@@ -8,9 +8,9 @@ class Cancion {
 private:
     string nombre;
     string idCanciones;    // 9 dígitos
-    float duracion;      // en minutos
-    string ubicacionArchivo;
     unsigned int cantReproducciones;
+    string autor;
+    float duracion;
 
 public:
     Cancion(); // constructor por defecto
@@ -20,7 +20,7 @@ public:
     Cancion(string _idCanciones,
             string _nombre,
             float _duracion,
-            string _ubicacionArchivo,
+            string Autor,
             unsigned int _cantReproducciones);
 
     // getters
@@ -36,7 +36,7 @@ public:
     void set_CantReproducciones(unsigned int _cantReproducciones);
 
     // Muestra la ruta completa de la cancion, recibiendo el artista
-    void mostrarRutaCancion(bool esPremium, string nombreArtista);
+    //void mostrarRutaCancion(bool esPremium, string nombreArtista);
 
 };
 

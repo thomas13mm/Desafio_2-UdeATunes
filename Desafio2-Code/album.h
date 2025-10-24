@@ -10,7 +10,8 @@ using namespace std;
 class Album{
 public:
     Album(string Nombre, string ID_Album_, string Fecha, float Duracion, string Generos,
-            unsigned short int Puntuacion, Metrica &x);
+            unsigned short int Puntuacion, Metrica &x, string sello);
+    Album();
     ~Album();
 
     // Getters

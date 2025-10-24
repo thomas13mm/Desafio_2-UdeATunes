@@ -1,10 +1,26 @@
 #include "album.h"
 
-Album::Album(string Nombre, string ID_Album_, string Fecha,
-             float Duracion, string Generos, unsigned short Puntuacion, Metrica &x):
-    nombre(Nombre), ID_Album(ID_Album_), fecha(Fecha), duracion(Duracion),puntuacion(Puntuacion), generos(Generos){
+Album::Album(){}
 
+Album::Album(string Nombre, string ID_Album_, string Fecha,
+             float Duracion, string Generos, unsigned short Puntuacion, Metrica &x, string sello):
+    nombre(Nombre), ID_Album(ID_Album_), fecha(Fecha), duracion(Duracion),puntuacion(Puntuacion), selloDisquero(sello){
+
+
+    string c="";
+    unsigned short int cont=0;
     //portadaRuta="/users/storage/+Artista/+audio/image/"+Nombre;
+    for(unsigned int i=0; i<Generos.length(); i++){
+        if(Generos[i]!=','){
+            c+=Generos[i];
+        }
+        else{
+            generos[cont]=c;
+            c="";
+            cont++;
+        }
+    }
+    generos[cont]=c;
 }
 
 Album::~Album(){}

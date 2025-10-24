@@ -8,7 +8,6 @@ Cancion::Cancion()
     : nombre(""),
     idCanciones(""),
     duracion(0),
-    ubicacionArchivo(""),
     cantReproducciones(0) {}
 
 
@@ -16,19 +15,18 @@ Cancion::Cancion()
 Cancion::Cancion(string _idCanciones,
                  string _nombre,
                  float _duracion,
-                 string _ubicacionArchivo,
+                 string Autor,
                  unsigned int _cantReproducciones)
     : nombre(_nombre),
     idCanciones(_idCanciones),
     duracion(_duracion),
-    ubicacionArchivo(_ubicacionArchivo),
+    autor(Autor),
     cantReproducciones(_cantReproducciones) {}
 
 // getters
 string Cancion::get_Nombre() { return nombre; }
 string Cancion::get_IdCanciones() { return idCanciones; }
 float Cancion::get_Duracion() { return duracion; }
-string Cancion::get_UbicacionArchivo() { return ubicacionArchivo; }
 unsigned int Cancion::get_CantReproducciones() { return cantReproducciones; }
 
 // setters
@@ -36,7 +34,7 @@ void Cancion::set_IdCanciones(string _idCanciones) { idCanciones = _idCanciones;
 void Cancion::set_Duracion(float _duracion) { duracion = _duracion; }
 void Cancion::set_CantReproducciones(unsigned int _cantReproducciones) { cantReproducciones = _cantReproducciones; }
 
-void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista) {
+/*void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista) {
 
     // Determinar calidad
     string calidad = esPremium ? "_320.ogg" : "_128.ogg";
@@ -78,6 +76,6 @@ void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista) {
     string ruta = ubicacionArchivo + artistaEscapado + "/audio/" + cancionEscapada + calidad;
     cout << ruta << endl;
 
-}
+}*/
 
 
