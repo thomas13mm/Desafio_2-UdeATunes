@@ -16,12 +16,16 @@ Cancion::Cancion(string _idCanciones,
                  string _nombre,
                  float _duracion,
                  string Autor,
-                 unsigned int _cantReproducciones)
+                 unsigned int _cantReproducciones, Metrica &x)
     : nombre(_nombre),
     idCanciones(_idCanciones),
     duracion(_duracion),
     autor(Autor),
-    cantReproducciones(_cantReproducciones) {}
+    cantReproducciones(_cantReproducciones) {
+    x.agregarMemoria(sizeof(Cancion));
+}
+
+Cancion::~Cancion(){}
 
 // getters
 string Cancion::get_Nombre() { return nombre; }
@@ -34,7 +38,7 @@ void Cancion::set_IdCanciones(string _idCanciones) { idCanciones = _idCanciones;
 void Cancion::set_Duracion(float _duracion) { duracion = _duracion; }
 void Cancion::set_CantReproducciones(unsigned int _cantReproducciones) { cantReproducciones = _cantReproducciones; }
 
-/*void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista) {
+void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista) {
 
     // Determinar calidad
     string calidad = esPremium ? "_320.ogg" : "_128.ogg";
@@ -76,6 +80,8 @@ void Cancion::set_CantReproducciones(unsigned int _cantReproducciones) { cantRep
     string ruta = ubicacionArchivo + artistaEscapado + "/audio/" + cancionEscapada + calidad;
     cout << ruta << endl;
 
-}*/
+}
+
+
 
 

@@ -11,6 +11,7 @@ ListaRP::ListaRP(unsigned int TamEnUso_, Metrica &x)
     }
 
     x.agregarMemoria(sizeof(Cancion*) * MaxSongs + sizeof(Cancion) * CantMaxPrevias);
+
 }
 
 ListaRP::~ListaRP() {
@@ -22,24 +23,26 @@ ListaRP::~ListaRP() {
 //          FUNCIONES PRINCIPALES
 // -------------------------------------
 
-bool ListaRP::AgregarCancion(Cancion &n) {
+bool ListaRP::AgregarCancion(Cancion* n, Metrica &x) {
     for (unsigned int i = 0; i < MaxSongs; i++) {
         if (MisFavoritas[i] == nullptr) {
-            MisFavoritas[i] = &n;  // guarda dirección
+            MisFavoritas[i] = n;
             TamEnUso++;
             return true;
         }
+        x.SetIter_AgregarCancion();
     }
     return false; // lista llena
 }
 
-bool ListaRP::EliminarCancion(Cancion &n) {
+bool ListaRP::EliminarCancion(Cancion* n, Metrica &x) {
     for (unsigned int i = 0; i < MaxSongs; i++) {
-        if (MisFavoritas[i] != nullptr && MisFavoritas[i]->get_IdCanciones() == n.get_IdCanciones()) {
+        if (MisFavoritas[i] != nullptr && MisFavoritas[i]->get_IdCanciones() == n->get_IdCanciones()) {
             MisFavoritas[i] = nullptr;
             if (TamEnUso > 0) TamEnUso--;
             return true;
         }
+        x.SetIter_EliminarCancion();
     }
     return false;
 }
@@ -69,9 +72,16 @@ bool ListaRP::Reproducir(Cancion &n) {
     return true;
 }
 
-// -------------------------------------
-//               GETTERS
-// -------------------------------------
+void ListaRP::MostrarLista(){
+    unsigned int i=0;
+    while(i<TamEnUso){
+        if(this->GetMisFavoritas()[i]!=nullptr){
+            cout<<i+1<<". "<<this->GetMisFavoritas()[i]->get_Nombre()<< " "<<
+            this->GetMisFavoritas()[i]->get_IdCanciones()<<'\n';
+        }
+        i++;
+    }
+}
 
 Cancion** ListaRP::GetMisFavoritas() {
     return MisFavoritas;
@@ -102,7 +112,7 @@ unsigned int ListaRP::GetIndicePrevias() const {
 // -------------------------------------
 
 bool ListaRP::SetFavoritasCancionesPrevias(Cancion &n) {
-    CancionesPrevias[indicePrevias] = n; // copia la canción
+    CancionesPrevias[indicePrevias] = n;
     indicePrevias = (indicePrevias + 1) % CantMaxPrevias;
     return true;
 }
@@ -118,5 +128,19 @@ void ListaRP::SetIndicePrevias(unsigned int nuevoIndice) {
         indicePrevias = nuevoIndice;
     }
 }
+
+Cancion* ListaRP::BuscarCancionPorCodigo(string codigo) {
+    for (unsigned int i = 0; i < TamEnUso; i++) {
+        if (MisFavoritas[i] != nullptr && MisFavoritas[i]->get_IdCanciones() == codigo) {
+            return MisFavoritas[i];
+        }
+
+    }
+
+
+    return nullptr;
+}
+
+
 
 

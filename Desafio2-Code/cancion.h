@@ -1,6 +1,7 @@
 #ifndef _CANCION_H_
 #define _CANCION_H_
 
+#include <metrica.h>
 #include <string>
 using namespace std;
 
@@ -15,13 +16,14 @@ private:
 public:
     Cancion(); // constructor por defecto
 
-
     // constructor con parametros
     Cancion(string _idCanciones,
             string _nombre,
             float _duracion,
             string Autor,
-            unsigned int _cantReproducciones);
+            unsigned int _cantReproducciones, Metrica &x);
+
+    ~Cancion();
 
     // getters
     string get_Nombre();
@@ -36,7 +38,7 @@ public:
     void set_CantReproducciones(unsigned int _cantReproducciones);
 
     // Muestra la ruta completa de la cancion, recibiendo el artista
-    //void mostrarRutaCancion(bool esPremium, string nombreArtista);
+    void mostrarRutaCancion(bool esPremium, string nombreArtista);
 
 };
 

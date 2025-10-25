@@ -1,6 +1,6 @@
 #ifndef ARTISTA_H
 #define ARTISTA_H
-
+#include <metrica.h>
 #include <string>
 using namespace std;
 
@@ -21,7 +21,7 @@ public:
             string _paisOrigen,
             unsigned int _cantSeguidores,
             unsigned int _posGlobal,
-            string _albumIDs);  // <<<<< CAMBIO AQUÍ
+            string _albumIDs, Metrica &x);  // <<<<< CAMBIO AQUÍ
 
     Artista();
     ~Artista();

@@ -1,5 +1,7 @@
 #include "artista.h"
 #include <iostream>
+#include <metrica.h>
+
 using namespace std;
 
 Artista::Artista() {
@@ -18,7 +20,7 @@ Artista::Artista(string _idArtista,
                  string _paisOrigen,
                  unsigned int _cantSeguidores,
                  unsigned int _posGlobal,
-                 string _albumIDs) // <<<<< Recibe solo un string
+                 string _albumIDs, Metrica &x) // <<<<< Recibe solo un string
 {
     idArtista = _idArtista;
     edadArtista = _edadArtista;
@@ -43,7 +45,10 @@ Artista::Artista(string _idArtista,
     // Rellenar vacíos
     for (unsigned int i = cantAlbum; i < 20; i++)
         albumIDs[i] = "";
+
+    x.agregarMemoria(sizeof(Artista));
 }
+
 
 Artista::~Artista() {}
 

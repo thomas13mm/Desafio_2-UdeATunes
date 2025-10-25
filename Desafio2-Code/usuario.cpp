@@ -1,79 +1,126 @@
 #include "usuario.h"
 #include "listarp.h"
-
 #include <iostream>
 using namespace std;
 
 // Constructor por defecto
 Usuario::Usuario() {
     nickName = "";
-    membresia = false;           // estándar por defecto
+    membresia = false;
     pais = "";
     fechaRegistro = "";
-    MiListaRP = nullptr;         // sin lista asignada
+    MiListaRP = nullptr;
+    siguiendoA = nullptr;
 }
 
-// Constructor con parametros
+// Constructor con parámetros
 Usuario::Usuario(string _nickName,
                  bool _membresia,
                  string _pais,
                  string _fechaRegistro,
-                 ListaRP* _MiListaRP) {
+                 ListaRP* _MiListaRP, Metrica &x) {
     nickName = _nickName;
     membresia = _membresia;
     pais = _pais;
     fechaRegistro = _fechaRegistro;
     MiListaRP = _MiListaRP;
+    siguiendoA = nullptr;
+
+    x.agregarMemoria(sizeof(Usuario));
 }
 
-// getters
+Usuario::~Usuario(){}
+
+// Getters
 string Usuario::get_nickName() { return nickName; }
 bool Usuario::get_membresia() { return membresia; }
 string Usuario::get_pais() { return pais; }
 string Usuario::get_fechaRegistro() { return fechaRegistro; }
 ListaRP* Usuario::get_MiListaRP() { return MiListaRP; }
+Usuario* Usuario::get_siguiendoA() { return siguiendoA; }
 
-
-// setters
+// Setters
 void Usuario::set_nickName(string _nickName) { nickName = _nickName; }
 void Usuario::set_membresia(bool _membresia) { membresia = _membresia; }
 void Usuario::set_pais(string _pais) { pais = _pais; }
 void Usuario::set_fechaRegistro(string _fechaRegistro) { fechaRegistro = _fechaRegistro; }
 void Usuario::set_MiListaRP(ListaRP* _MiListaRP) { MiListaRP = _MiListaRP; }
+void Usuario::set_siguiendoA(Usuario* _siguiendoA) { siguiendoA = _siguiendoA; }
 
-bool Usuario::seguirUsuario(Usuario& otro) {
-    
-    // validaciones
+
+bool Usuario::seguirUsuario(Usuario* otro) {
     if (MiListaRP == nullptr) return false;
-    if (otro.get_MiListaRP() == nullptr) return false;
+    if (otro == nullptr) return false;
+    if (otro->get_MiListaRP() == nullptr) return false;
 
-    // Tomamos el arreglo de punteros a favoritas del otro usuario
-    Cancion** favMias  = MiListaRP->GetMisFavoritas();
-    Cancion** favOtro = otro.get_MiListaRP()->GetMisFavoritas();
+    if (!membresia || !otro->get_membresia()) {
+        cout << "Solo los usuarios premium pueden seguir a otros premium.\n";
+        return false;
+    }
+
+    siguiendoA = otro;
+
+    // Tomamos el arreglo de punteros a favoritas
+    Cancion** favMias = MiListaRP->GetMisFavoritas();
+    Cancion** favOtro = otro->get_MiListaRP()->GetMisFavoritas();
     if (favMias == nullptr || favOtro == nullptr) return false;
 
     const unsigned int MAX = 10000;
 
-    //obtener tamaños actuales (IMPORTANTE: hacer que la clase ListaRP tenga a usuario como clase amiga)
     unsigned int tamUso1 = MiListaRP->GetTamEnUso();
-    unsigned int tamUso2 = otro.get_MiListaRP()->GetTamEnUso();
+    unsigned int tamUso2 = otro->get_MiListaRP()->GetTamEnUso();
 
-    // Verificar capacidad (si no caben todas, no seguimos)
-    if (tamUso1 + tamUso2 > MAX) { return false; } // no hay espacio suficiente para seguir a 'otro'
+    // Verificar capacidad
+    if (tamUso1 + tamUso2 > MAX) return false;
 
-
-    // copia los punteros de las canciones del otro usuario
+    // Copiar punteros de canciones del otro usuario
     for (unsigned int j = 0; j < tamUso2; ++j) {
         favMias[tamUso1 + j] = favOtro[j];
     }
 
-    // actualizar el nuevo tamaño total
+    // Actualizar tamaño total
     MiListaRP->SetTamEnUso(tamUso1 + tamUso2);
 
+    return true;
+}
+
+bool Usuario::dejarSeguirUsuario(Usuario* otro, Metrica &x) {
+    if (MiListaRP == nullptr) return false;
+    if (otro == nullptr) return false;
+    if (otro->get_MiListaRP() == nullptr) return false;
+    if (siguiendoA != otro) {
+        cout << "El usuario actual no sigue a " << otro->get_nickName() << '\n';
+        return false;
+    }
+
+    Cancion** favOtro = otro->get_MiListaRP()->GetMisFavoritas();
+    if (favOtro == nullptr) return false;
+
+    unsigned int tamUso2 = otro->get_MiListaRP()->GetTamEnUso();
+
+    for (unsigned int j = 0; j < tamUso2; ++j) {
+        Cancion* cancionOtro = favOtro[j];
+        if (cancionOtro == nullptr) continue;
+
+        MiListaRP->EliminarCancion(cancionOtro, x);
+    }
+
+    // Ya no sigo a nadie
+    siguiendoA = nullptr;
 
     return true;
 }
 
 
+
+Usuario* Usuario::BuscarUser(Usuario* Usuarios, unsigned int &tam_usuarios, string &nickname){
+    for(unsigned int i =0; i< tam_usuarios; i++){
+        if(Usuarios[i].get_nickName()==nickname){
+            return &Usuarios[i];
+        }
+    }
+    cout<<"El usuario no existe"<<'\n';
+    return nullptr;
+}
 
 

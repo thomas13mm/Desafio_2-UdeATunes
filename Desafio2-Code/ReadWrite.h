@@ -7,6 +7,7 @@
 #include <artista.h>
 #include <usuario.h>
 #include <listarp.h>
+#include <anuncio.h>
 #include <album.h>
 #include <cancion.h>
 #include <readwrite.h>
@@ -41,8 +42,8 @@ int splitLinea(const string &linea, char separador, string partes[], int maxPart
 
 
 bool readArchivo(const char* fileName, Artista* &Artistas, Album* &Albumes, Cancion* &Canciones, unsigned int &Cant_Artistas,
-                     unsigned int &Cant_Albumes, unsigned int &Cant_Canciones) {
-    Metrica x;
+                     unsigned int &Cant_Albumes, unsigned int &Cant_Canciones,Metrica &x) {
+
     contarSeccionesEnArchivo(fileName, Cant_Artistas, Cant_Albumes, Cant_Canciones);
 
     ifstream Archivo(fileName);
@@ -79,7 +80,7 @@ bool readArchivo(const char* fileName, Artista* &Artistas, Album* &Albumes, Canc
         case 1: {
             string partes[6];
             splitLinea(aux, '|', partes, 6);
-            Artista n(partes[0], stoi(partes[1]), partes[2], stoi(partes[3]), stoi(partes[4]), partes[5]);
+            Artista n(partes[0], stoi(partes[1]), partes[2], stoi(partes[3]), stoi(partes[4]), partes[5], x);
             Artistas[i_artista++] = n;
             break;
         }
@@ -87,7 +88,7 @@ bool readArchivo(const char* fileName, Artista* &Artistas, Album* &Albumes, Canc
         case 2: {
             string partes[8];
             splitLinea(aux, '|', partes, 8);
-            Album n(partes[5],partes[0],partes[3],stof(partes[4]),partes[2],stoi(partes[7]),x, partes[6]);
+            Album n(partes[5],partes[0],partes[3],stof(partes[4]),partes[2],stoi(partes[7]), partes[6],x);
             Albumes[i_album++] = n;
             break;
         }
@@ -95,8 +96,7 @@ bool readArchivo(const char* fileName, Artista* &Artistas, Album* &Albumes, Canc
         case 3: {
             string partes[5];
             splitLinea(aux, '|', partes, 5);
-            Cancion n(partes[0],partes[1],stof(partes[2]),partes[3],stoi(partes[4]));
-            Canciones[i_cancion++] = n;
+            Canciones[i_cancion++] = Cancion(partes[0],partes[1],stof(partes[2]),partes[3],stoi(partes[4]),x);
             break;
         }
 
@@ -150,17 +150,16 @@ bool readArchivo(const char* fileName, Usuario*& Usuarios, unsigned int& numUsua
         if (linea.empty()) continue;
 
         if (linea == "-") {
-            // Fin de un usuario, crear objeto
             bool esPremium = (membresia == "Premium");
 
             ListaRP* lista = nullptr;
             if (esPremium) {
-                lista = new ListaRP(0, metrica);
+                lista = new ListaRP(0,metrica);
                 // asociar canciones a la lista
                 for (unsigned int i = 0; i < 10000 && !codigos[i].empty(); i++) {
                     for (unsigned int j = 0; j < numCanciones; j++) {
                         if (Canciones[j].get_IdCanciones() == codigos[i]) {
-                            lista->AgregarCancion(Canciones[j]);
+                            lista->AgregarCancion(&Canciones[j], metrica);
                             break;
                         }
                     }
@@ -168,7 +167,7 @@ bool readArchivo(const char* fileName, Usuario*& Usuarios, unsigned int& numUsua
                 }
             }
 
-            Usuarios[indiceUsuario] = Usuario(nick, esPremium, ciudadPais, fecha, lista);
+            Usuarios[indiceUsuario] = Usuario(nick, esPremium, ciudadPais, fecha, lista, metrica);
             indiceUsuario++;
             leyendoCanciones = false;
             continue;
@@ -182,7 +181,6 @@ bool readArchivo(const char* fileName, Usuario*& Usuarios, unsigned int& numUsua
             ciudadPais = partes[2];
             fecha = partes[3];
             leyendoCanciones = true;
-            // limpiar arreglo de códigos
             for (unsigned int i = 0; i < 10000; i++) codigos[i] = "";
         } else {
             // Línea de códigos
@@ -194,6 +192,22 @@ bool readArchivo(const char* fileName, Usuario*& Usuarios, unsigned int& numUsua
     return true;
 }
 
+
+void read_Anuncio(const char* fileName, Anuncio* &Anuncios, Metrica &x){
+    ifstream Archivo(fileName);
+    unsigned int It_Anuncio=0;
+    if (!Archivo.is_open()) {
+        cout << "Error: no se pudo abrir el archivo de usuarios.\n";
+    }
+    string linea;
+    string partes[2];
+
+    while(getline(Archivo,linea) || It_Anuncio<50){
+        if (linea.empty()) continue;
+        splitLinea(linea,'|',partes,2);
+        Anuncios[It_Anuncio++]=Anuncio(partes[1], partes[0],x);
+    }
+}
 
 
 

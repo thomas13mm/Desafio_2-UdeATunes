@@ -13,21 +13,21 @@ class Anuncio{
      */
 
 public:
-    Anuncio(char* Mensaj_Publi, const char* Prioridad_, Metrica &x);
+    Anuncio(string Mensaj_Publi, string Prioridad_, Metrica &x);
+    Anuncio();
     ~Anuncio();
-    char* GetMensaje_Publicitario();
+    string GetMensaje_Publicitario();
     unsigned short int GetPrioridad();
     void SetPrioridad(char* priori);
     void SetMensaje_Publicitario(char* Mensaje_Publi);
-    const char* getPrioridadtext();
+    string getPrioridadtext();
     bool operator >(Anuncio &B);
     bool operator <(Anuncio &B);
     bool operator ==(Anuncio &B);
 
 private:
-    char* Mensaje_Publicitario;
-    const char* Prioridad;
-
+    string Mensaje_Publicitario;
+    string  Prioridad;
 };
 
 #endif // ANUNCIO_H

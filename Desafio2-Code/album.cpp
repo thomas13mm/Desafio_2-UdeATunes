@@ -3,7 +3,7 @@
 Album::Album(){}
 
 Album::Album(string Nombre, string ID_Album_, string Fecha,
-             float Duracion, string Generos, unsigned short Puntuacion, Metrica &x, string sello):
+             float Duracion, string Generos, unsigned short Puntuacion,  string sello, Metrica &x):
     nombre(Nombre), ID_Album(ID_Album_), fecha(Fecha), duracion(Duracion),puntuacion(Puntuacion), selloDisquero(sello){
 
 
@@ -21,6 +21,7 @@ Album::Album(string Nombre, string ID_Album_, string Fecha,
         }
     }
     generos[cont]=c;
+    x.agregarMemoria(sizeof(Album));
 }
 
 Album::~Album(){}

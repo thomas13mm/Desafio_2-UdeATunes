@@ -14,14 +14,16 @@ public:
     ~ListaRP();
 
     // --- Funcionalidad principal ---
-    bool EliminarCancion(Cancion &n);
-    bool AgregarCancion(Cancion &n);
+    bool EliminarCancion(Cancion* n, Metrica &x);
+    bool AgregarCancion(Cancion* n, Metrica &x);
     Cancion* TomarCancionPrevia();
     bool Reproducir(Cancion &n);
+    void MostrarLista();
 
     // --- Getters ---
     Cancion** GetMisFavoritas();
     Cancion* GetCancionesPrevias();
+    Cancion* BuscarCancionPorCodigo(string codigo);
     unsigned int GetTamEnUso() const;
     unsigned int GetMaxSongs() const;
     unsigned int GetCantMaxPrevias() const;
@@ -37,7 +39,7 @@ private:
     Cancion* CancionesPrevias;      // Arreglo de canciones reproducidas recientemente
     unsigned int TamEnUso;          // Cantidad de canciones actualmente en uso
     const unsigned int MaxSongs = 10000;
-    const unsigned int CantMaxPrevias = 4;
+    const unsigned int CantMaxPrevias = 6;
     unsigned int indicePrevias = 0;
 };
 
