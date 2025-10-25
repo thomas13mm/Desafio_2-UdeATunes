@@ -1,6 +1,8 @@
 #include "anuncio.h"
 
-Anuncio::Anuncio(char* Mensaj_Publi, const char* Prioridad_, Metrica &x) {
+Anuncio::Anuncio(){}
+
+Anuncio::Anuncio(string Mensaj_Publi, string  Prioridad_, Metrica &x) {
     Mensaje_Publicitario=Mensaj_Publi;
     Prioridad=Prioridad_;
     x.agregarMemoria(sizeof(Mensaje_Publicitario) + sizeof(Prioridad));
@@ -18,18 +20,18 @@ void Anuncio::SetPrioridad(char* priori){
     this->Prioridad=priori;
 }
 
-char* Anuncio::GetMensaje_Publicitario(){
+string Anuncio::GetMensaje_Publicitario(){
     return Mensaje_Publicitario;
 }
 
 unsigned short int Anuncio::GetPrioridad(){
-    if (Prioridad[0] == 'A' && Prioridad[1] == 'A' && Prioridad[2] == 'A' && Prioridad[3] == '\0')return 3;
-    else if(*Prioridad=='B')return 2;
-    else if(*Prioridad=='C') return 1;
+    if (Prioridad=="AAA")return 3;
+    else if(Prioridad=="B")return 2;
+    else if(Prioridad=="C") return 1;
     return 0;
 }
 
-const char* Anuncio::getPrioridadtext(){
+string Anuncio::getPrioridadtext(){
     return Prioridad;
 }
 

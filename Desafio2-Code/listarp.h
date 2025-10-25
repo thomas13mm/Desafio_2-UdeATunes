@@ -1,37 +1,45 @@
 #ifndef LISTARP_H
 #define LISTARP_H
+
 #include <iostream>
-#include <cancion.h>
-#include <metrica.h>
+#include "cancion.h"
+#include "metrica.h"
 
 using namespace std;
 
-class ListaRP{    
+class ListaRP {
 public:
-    ListaRP(unsigned int TamEnUso_,Metrica &x); //listo
-    ~ListaRP();//listo
-    bool EliminarCancion(Cancion &n);//listo
-    bool AgregarCancion(Cancion &n);//listo
-    Cancion* TomarCancionPrevia();//listo
-    bool Reproducir(Cancion &n); //listo
+    // --- Constructor y destructor ---
+    ListaRP(unsigned int TamEnUso_, Metrica &x);
+    ~ListaRP();
 
-    Cancion** GetMisFavoritas();//Listo
-    Cancion* GetCancionesPrevias();//listo
+    // --- Funcionalidad principal ---
+    bool EliminarCancion(Cancion* n, Metrica &x);
+    bool AgregarCancion(Cancion* n, Metrica &x);
+    Cancion* TomarCancionPrevia();
+    bool Reproducir(Cancion &n);
+    void MostrarLista();
 
-    //void SetMisFavoritas();
-    //void SetFavoritasSeguido();
-    bool SetFavoritasCancionesPrevias(Cancion &n);//listo
+    // --- Getters ---
+    Cancion** GetMisFavoritas();
+    Cancion* GetCancionesPrevias();
+    Cancion* BuscarCancionPorCodigo(string codigo);
+    unsigned int GetTamEnUso() const;
+    unsigned int GetMaxSongs() const;
+    unsigned int GetCantMaxPrevias() const;
+    unsigned int GetIndicePrevias() const;
 
-    //bool operator== (ListaRP &list);
-    //bool operator< ();
-    //bool operator> ();
+    // --- Setters ---
+    bool SetFavoritasCancionesPrevias(Cancion &n);
+    void SetTamEnUso(unsigned int nuevoTam);
+    void SetIndicePrevias(unsigned int nuevoIndice);
 
 private:
-    Cancion** MisFavoritas;
-    Cancion* CancionesPrevias;
-    unsigned int TamEnUso;
-    const unsigned int MaxSongs=10000;
-    const unsigned int CantMaxPrevias=4;
+    Cancion** MisFavoritas;         // Arreglo de punteros a canciones favoritas
+    Cancion* CancionesPrevias;      // Arreglo de canciones reproducidas recientemente
+    unsigned int TamEnUso;          // Cantidad de canciones actualmente en uso
+    const unsigned int MaxSongs = 10000;
+    const unsigned int CantMaxPrevias = 6;
     unsigned int indicePrevias = 0;
 };
 

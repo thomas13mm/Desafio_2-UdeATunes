@@ -2,25 +2,29 @@
 #include <iostream>
 using namespace std;
 
+// Inicialización de las variables estáticas
 long Metrica::Iter_EliminarCancion = 0;
 long Metrica::Iter_AgregarCancion = 0;
-long Metrica::Iter_TomarCancionPrevia = 0;
-long Metrica::Iter_MostrarCanciones = 0;
-long Metrica::Iter_MostrarRutaCancion = 0;
-long Metrica::Iter_MostrarAlbumes = 0;
-
+long Metrica::Iter_IngresoPlataforma = 0;
 long Metrica::memoriaActual = 0;
 
 Metrica::Metrica() {}
 Metrica::~Metrica() {}
 
 void Metrica::MemoriaTotal() {
-    cout << "Memoria Total Actual: " << memoriaActual << " bytes\n";
+    cout << "Memoria actual utilizada: " << memoriaActual << " bytes" << endl;
 }
 
 void Metrica::IteracionesTotales() {
-    cout << "Iteraciones Totales: "
-         << Iter_EliminarCancion + Iter_AgregarCancion + Iter_TomarCancionPrevia
-                + Iter_MostrarCanciones + Iter_MostrarRutaCancion + Iter_MostrarAlbumes
-         << '\n';
+    cout << "Iteraciones registradas:" << endl;
+    cout << "  Eliminar Cancion: " << Iter_EliminarCancion << endl;
+    cout << "  Agregar Cancion: " << Iter_AgregarCancion << endl;
+    cout << "  Ingreso Plataforma: " << Iter_IngresoPlataforma << endl;
+}
+
+void Metrica::ReiniciarMetricas() {
+    Iter_EliminarCancion = 0;
+    Iter_AgregarCancion = 0;
+    Iter_IngresoPlataforma = 0;
+    memoriaActual = 0;
 }
