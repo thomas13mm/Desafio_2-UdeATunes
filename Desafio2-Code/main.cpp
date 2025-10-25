@@ -178,10 +178,8 @@ int main() {
 
             switch (control) {
             case 1:{
-
                 break;
             }
-
             default:
                 break;
             }
