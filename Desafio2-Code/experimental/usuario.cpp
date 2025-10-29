@@ -1,6 +1,7 @@
 #include "usuario.h"
 #include "listarp.h"
 #include <iostream>
+#include <chrono>
 using namespace std;
 
 // Constructor por defecto
@@ -124,3 +125,43 @@ Usuario* Usuario::BuscarUser(Usuario* Usuarios, unsigned int &tam_usuarios, stri
 }
 
 
+void Usuario::ReproducirAutomaticamente() {
+
+    if (!MiListaRP) {
+        cout << "No hay lista de reproducción asociada.\n";
+        return;
+    }
+
+    Cancion** fav = MiListaRP->GetMisFavoritas();
+    if (!fav) {
+        cout << "Lista de favoritas no disponible.\n";
+        return;
+    }
+
+    unsigned int tamUso = MiListaRP->GetTamEnUso();
+    if (tamUso == 0) {
+        cout << "No hay canciones para reproducir.\n";
+        return;
+    }
+
+    cout << "=== Reproducción automática (cada 5 s) ===\n";
+
+    unsigned int reproducidas = 0;
+    for (unsigned int i = 0; i < tamUso; ++i) {
+        if (fav[i] == nullptr) continue;
+
+        cout << "\n Canción " << (reproducidas + 1) << " de " << tamUso << '\n';
+
+        MiListaRP->Reproducir(*fav[i]);
+
+        reproducidas++;
+
+        // 3) Espera de 5 segundos usando SOLO <chrono> (busy-wait)
+        auto t0 = std::chrono::steady_clock::now();
+        while (std::chrono::steady_clock::now() - t0 < std::chrono::seconds(5)) {
+            // espera activa
+        }
+    }
+
+    cout << "\n=== Fin de la reproducción automática ===\n";
+}
