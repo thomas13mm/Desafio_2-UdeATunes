@@ -3,7 +3,7 @@
 
 #include <metrica.h>
 #include <string>
-#include <chrono>
+
 using namespace std;
 
 // Declaración anticipada
