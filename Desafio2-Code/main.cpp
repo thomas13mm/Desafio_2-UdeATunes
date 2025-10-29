@@ -31,6 +31,7 @@ int main() {
     Usuario* ActualUser= nullptr;
     Anuncio* Anuncios=nullptr;
 
+
     //reservamos memoria
     Anuncios=new Anuncio[50];
 
@@ -45,6 +46,8 @@ int main() {
     string password;
 
 
+
+
 //Esta es la segunda funcionalidad (Ingreso a la plataforma)
     do{
     cout<<"Ingrese su nombre de usuario: ";
@@ -53,6 +56,11 @@ int main() {
     cin>>password;
     }while(!(verificar_Existencia(nickname, Usuarios, CUsuarios,x, ActualUser)));
 
+
+    cout<<'\n';
+    Canciones[0].mostrarRutaCancion(true,nickname);
+
+    Usuarios[0].get_MiListaRP()->GetMisFavoritas();
 
     unsigned short int control;
     unsigned short int control2;

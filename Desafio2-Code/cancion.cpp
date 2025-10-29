@@ -38,7 +38,9 @@ void Cancion::set_IdCanciones(string _idCanciones) { idCanciones = _idCanciones;
 void Cancion::set_Duracion(float _duracion) { duracion = _duracion; }
 void Cancion::set_CantReproducciones(unsigned int _cantReproducciones) { cantReproducciones = _cantReproducciones; }
 
-void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista) {
+
+
+void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista, string ubicacionArchivo) {
 
     // Determinar calidad
     string calidad = esPremium ? "_320.ogg" : "_128.ogg";
@@ -80,7 +82,7 @@ void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista) {
     string ruta = ubicacionArchivo + artistaEscapado + "/audio/" + cancionEscapada + calidad;
     cout << ruta << endl;
 
-}
+    }
 
 
 

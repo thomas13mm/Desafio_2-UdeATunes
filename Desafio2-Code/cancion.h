@@ -38,7 +38,7 @@ public:
     void set_CantReproducciones(unsigned int _cantReproducciones);
 
     // Muestra la ruta completa de la cancion, recibiendo el artista
-    void mostrarRutaCancion(bool esPremium, string nombreArtista);
+    void mostrarRutaCancion(bool esPremium, string nombreArtista, string ubicacionArchivo="/users/storage/Thomas/");
 
 };
 

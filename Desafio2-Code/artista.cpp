@@ -20,9 +20,10 @@ Artista::Artista(string _idArtista,
                  string _paisOrigen,
                  unsigned int _cantSeguidores,
                  unsigned int _posGlobal,
-                 string _albumIDs, Metrica &x) // <<<<< Recibe solo un string
+                 string _albumIDs, string Nombre_, Metrica &x) // <<<<< Recibe solo un string
 {
     idArtista = _idArtista;
+    nombre=Nombre_;
     edadArtista = _edadArtista;
     paisOrigen = _paisOrigen;
     cantSeguidores = _cantSeguidores;

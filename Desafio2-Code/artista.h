@@ -6,6 +6,7 @@ using namespace std;
 
 class Artista {
 private:
+    string nombre;
     string idArtista;
     unsigned short edadArtista;
     string paisOrigen;
@@ -21,7 +22,7 @@ public:
             string _paisOrigen,
             unsigned int _cantSeguidores,
             unsigned int _posGlobal,
-            string _albumIDs, Metrica &x);  // <<<<< CAMBIO AQUÍ
+            string _albumIDs, string Nombre_, Metrica &x);  // <<<<< CAMBIO AQUÍ
 
     Artista();
     ~Artista();

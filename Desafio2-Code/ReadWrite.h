@@ -78,9 +78,9 @@ bool readArchivo(const char* fileName, Artista* &Artistas, Album* &Albumes, Canc
 
         switch (control) {
         case 1: {
-            string partes[6];
-            splitLinea(aux, '|', partes, 6);
-            Artista n(partes[0], stoi(partes[1]), partes[2], stoi(partes[3]), stoi(partes[4]), partes[5], x);
+            string partes[7];
+            splitLinea(aux, '|', partes, 7);
+            Artista n(partes[0], stoi(partes[1]), partes[2], stoi(partes[3]), stoi(partes[4]), partes[5], partes[6]  ,x);
             Artistas[i_artista++] = n;
             break;
         }
