@@ -1,7 +1,6 @@
 #include "usuario.h"
 #include "listarp.h"
 #include <iostream>
-#include <chrono>
 #include <random>
 
 using namespace std;
@@ -187,36 +186,30 @@ void Usuario::ReproducirListaRandom() {
         return;
     }
 
-    cout << "=== Reproducción aleatoria iniciada ===\n";
-    cout << "(Escribe 0 y presiona Enter para detener)\n";
+    cout << "=== Reproducción aleatoria manual ===\n";
+    cout << "Presiona ENTER para reproducir una canción aleatoria.\n";
+    cout << "Escribe 0 y presiona ENTER para detener.\n\n";
 
-    random_device rd;                      // semilla aleatoria
-    mt19937 gen(rd());                     // motor de generación (Mersenne Twister)
+    random_device rd;
+    mt19937 gen(rd());
     uniform_int_distribution<> dist(0, tamUso - 1);
 
+    string entrada;
     while (true) {
-        unsigned int indice = dist(gen);
+        cout << ">>> ";
+        getline(cin, entrada);
 
-        // si el puntero esta vacio, busca otro
+        if (entrada == "0") {
+            cout << "\n=== Reproducción detenida ===\n";
+            break;
+        }
+
+        unsigned int indice = dist(gen);
         while (fav[indice] == nullptr) {
             indice = dist(gen);
         }
 
         MiListaRP->Reproducir(*fav[indice]);
-
-        // Ventana de 5 segundos o hasta que se ingrese "0"
-        auto inicio = chrono::steady_clock::now();
-        while (chrono::steady_clock::now() - inicio < chrono::seconds(5)) {
-            if (cin.rdbuf()->in_avail() > 0) {
-                string entrada;
-                getline(cin, entrada);
-                if (!entrada.empty() && entrada == "0") {
-                    cout << "\n=== Reproducción detenida por el usuario ===\n";
-                    return;
-                }
-            }
-        }
     }
 }
-
 
