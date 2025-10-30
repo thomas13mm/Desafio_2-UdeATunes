@@ -2,8 +2,8 @@
 #define ALBUM_H
 #include <string>
 #include <iostream>
-#include <cancion.h>
-#include <metrica.h>
+#include "cancion.h"
+#include "metrica.h"
 
 using namespace std;
 

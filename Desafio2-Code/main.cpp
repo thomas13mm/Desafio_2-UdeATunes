@@ -17,6 +17,7 @@ int main() {
     const char* name = "dataset_AAC.txt";
     const char* name2 = "dataset_ULR.txt";
     const char* name3= "dataset_An.txt";
+    string ubicacion="/users/storage/";
 
     unsigned int CArtistas = 0;
     unsigned int CAlbumes = 0;
@@ -31,7 +32,6 @@ int main() {
     Usuario* ActualUser= nullptr;
     Anuncio* Anuncios=nullptr;
 
-
     //reservamos memoria
     Anuncios=new Anuncio[50];
 
@@ -45,9 +45,6 @@ int main() {
     string nickname;
     string password;
 
-
-
-
 //Esta es la segunda funcionalidad (Ingreso a la plataforma)
     do{
     cout<<"Ingrese su nombre de usuario: ";
@@ -55,12 +52,6 @@ int main() {
     cout<<"Ingrese su contrasena: ";
     cin>>password;
     }while(!(verificar_Existencia(nickname, Usuarios, CUsuarios,x, ActualUser)));
-
-
-    cout<<'\n';
-    Canciones[0].mostrarRutaCancion(true,nickname);
-
-    Usuarios[0].get_MiListaRP()->GetMisFavoritas();
 
     unsigned short int control;
     unsigned short int control2;
@@ -186,7 +177,7 @@ int main() {
 
             switch (control) {
             case 1:{
-
+                ActualUser->ReproducirAutomaticamente(ubicacion,Artistas,Albumes,CAlbumes, CArtistas);
                 break;
             }
 
@@ -201,6 +192,7 @@ int main() {
             x.IteracionesTotales();
             x.GetMemoriaActual();
             x.MemoriaTotal();
+            break;
         }
 
         default:

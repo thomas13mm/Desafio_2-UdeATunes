@@ -2,6 +2,7 @@
 #include "listarp.h"
 #include <iostream>
 #include <chrono>
+#include <album.h>
 using namespace std;
 
 // Constructor por defecto
@@ -105,8 +106,6 @@ bool Usuario::dejarSeguirUsuario(Usuario* otro, Metrica &x) {
 
         MiListaRP->EliminarCancion(cancionOtro, x);
     }
-
-    // Ya no sigo a nadie
     siguiendoA = nullptr;
 
     return true;
@@ -125,10 +124,11 @@ Usuario* Usuario::BuscarUser(Usuario* Usuarios, unsigned int &tam_usuarios, stri
 }
 
 
-void Usuario::ReproducirAutomaticamente() {
+void Usuario::ReproducirAutomaticamente(string ubicacion, Artista* Artistas, Album* Albumes,
+                                        unsigned int cantAlbumes, unsigned int cantArtistas) {
 
     if (!MiListaRP) {
-        cout << "No hay lista de reproducción asociada.\n";
+        cout << "No hay lista de reproduccion asociada.\n";
         return;
     }
 
@@ -144,24 +144,25 @@ void Usuario::ReproducirAutomaticamente() {
         return;
     }
 
-    cout << "=== Reproducción automática (cada 5 s) ===\n";
+    cout << "=== Reproduccion automatica (cada 5 s) ===\n";
 
     unsigned int reproducidas = 0;
     for (unsigned int i = 0; i < tamUso; ++i) {
         if (fav[i] == nullptr) continue;
 
-        cout << "\n Canción " << (reproducidas + 1) << " de " << tamUso << '\n';
+        cout << "\n Cancion " << (reproducidas + 1) << " de " << tamUso << '\n';
 
-        MiListaRP->Reproducir(*fav[i]);
+        MiListaRP->Reproducir(*fav[i], *this,
+                              ubicacion, fav[i]->BuscarDueno(fav[i],Artistas,cantArtistas)->getnombre(),
+                                fav[i]->BuscarAlbum(fav[i],Albumes,cantAlbumes)->getnombre());
+
 
         reproducidas++;
 
-        // 3) Espera de 5 segundos usando SOLO <chrono> (busy-wait)
         auto t0 = std::chrono::steady_clock::now();
         while (std::chrono::steady_clock::now() - t0 < std::chrono::seconds(5)) {
-            // espera activa
         }
     }
 
-    cout << "\n=== Fin de la reproducción automática ===\n";
+    cout << "\n=== Fin de la reproduccion automatica ===\n";
 }

@@ -32,6 +32,7 @@ public:
     unsigned short get_edadArtista();
     string get_paisOrigen();
     unsigned int get_cantSeguidores();
+    string getnombre();
     unsigned int get_posGlobal();
 
     // setters

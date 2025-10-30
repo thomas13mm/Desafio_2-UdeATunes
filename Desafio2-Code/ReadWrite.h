@@ -1,5 +1,6 @@
 #ifndef READWRITE_H
 #define READWRITE_H
+#include <readwrite.h>
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
@@ -10,7 +11,6 @@
 #include <anuncio.h>
 #include <album.h>
 #include <cancion.h>
-#include <readwrite.h>
 
 using namespace std;
 

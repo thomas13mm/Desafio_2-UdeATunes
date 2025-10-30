@@ -1,6 +1,8 @@
 #include "cancion.h"
 #include <iostream>
 #include <string>
+#include <album.h>
+
 using namespace std;
 
 // Constructor por defecto: inicializa con valores seguros
@@ -32,6 +34,7 @@ string Cancion::get_Nombre() { return nombre; }
 string Cancion::get_IdCanciones() { return idCanciones; }
 float Cancion::get_Duracion() { return duracion; }
 unsigned int Cancion::get_CantReproducciones() { return cantReproducciones; }
+string Cancion::getcreditos(){return autor;}
 
 // setters
 void Cancion::set_IdCanciones(string _idCanciones) { idCanciones = _idCanciones; }
@@ -39,6 +42,19 @@ void Cancion::set_Duracion(float _duracion) { duracion = _duracion; }
 void Cancion::set_CantReproducciones(unsigned int _cantReproducciones) { cantReproducciones = _cantReproducciones; }
 
 
+Artista* Cancion::BuscarDueno(Cancion* x, Artista*  Artistas, unsigned int cantArtist){
+    for(unsigned int i=0; i<cantArtist;i++){
+        if(Artistas[i].get_idArtista()==x->get_IdCanciones().substr(0,5))return &Artistas[i];
+    }
+    return nullptr;
+}
+
+Album* Cancion::BuscarAlbum(Cancion *x, Album *Albumes, unsigned int cantAlbumes){
+    for(unsigned int i=0; i<cantAlbumes; i++){
+        if(Albumes[i].getID_Album()==x->get_IdCanciones().substr(7,7))return &Albumes[i];
+    }
+    return nullptr;
+}
 
 void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista, string ubicacionArchivo) {
 
@@ -82,7 +98,8 @@ void Cancion::mostrarRutaCancion(bool esPremium, string nombreArtista, string ub
     string ruta = ubicacionArchivo + artistaEscapado + "/audio/" + cancionEscapada + calidad;
     cout << ruta << endl;
 
-    }
+}
+
 
 
 

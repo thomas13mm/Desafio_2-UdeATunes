@@ -58,6 +58,7 @@ unsigned short Artista::get_edadArtista() { return edadArtista; }
 string Artista::get_paisOrigen() { return paisOrigen; }
 unsigned int Artista::get_cantSeguidores() { return cantSeguidores; }
 unsigned int Artista::get_posGlobal() { return posGlobal; }
+string Artista::getnombre(){return nombre;}
 
 void Artista::set_edadArtista(unsigned short _edadArtista) { edadArtista = _edadArtista; }
 void Artista::set_paisOrigen(string _paisOrigen) { paisOrigen = _paisOrigen; }

@@ -1,4 +1,5 @@
 #include "listarp.h"
+#include <usuario.h>
 
 ListaRP::ListaRP(unsigned int TamEnUso_, Metrica &x)
     : TamEnUso(TamEnUso_)
@@ -61,12 +62,17 @@ Cancion* ListaRP::TomarCancionPrevia() {
     return &CancionesPrevias[indicePrevias];
 }
 
-bool ListaRP::Reproducir(Cancion &n) {
-    cout << "Reproduciendo:\n";
-    cout << "  Nombre: " << n.get_Nombre() << '\n';
-    //cout << "  Autor: " << n.getcreditos << '\n';
-    cout << "  Duración: " << n.get_Duracion() << " min\n";
-    //cout << "  Ubicación: " << n.mostrarRutaCancion() << "\n\n";
+bool ListaRP::Reproducir(Cancion &n, Usuario &x, string ubicacion, string artista, string album) {
+    cout << "\n==========================\n"<<'\n';
+    cout << "Reproduciendo:\n\n";
+
+    cout << "               " << artista << '\n';
+    cout << "              " << album << "\n\n";
+
+    cout << "                " << n.get_Nombre() << '\n';
+    n.mostrarRutaCancion(x.get_membresia(),artista ,ubicacion);
+    cout << "              Duracion: " << n.get_Duracion() << " min\n";
+    cout<<"\n==========================\n"<<'\n';
 
     SetFavoritasCancionesPrevias(n);
     return true;

@@ -3,12 +3,17 @@
 
 #include <metrica.h>
 #include <string>
+#include <artista.h>
+
 using namespace std;
+
+class Album;
 
 class Cancion {
 private:
     string nombre;
     string idCanciones;    // 9 dígitos
+    string creditos;
     unsigned int cantReproducciones;
     string autor;
     float duracion;
@@ -30,6 +35,7 @@ public:
     string get_IdCanciones();
     float get_Duracion();
     string get_UbicacionArchivo();
+    string getcreditos();
     unsigned int get_CantReproducciones();
 
     // setters
@@ -37,8 +43,9 @@ public:
     void set_Duracion(float _duracion);
     void set_CantReproducciones(unsigned int _cantReproducciones);
 
-    // Muestra la ruta completa de la cancion, recibiendo el artista
     void mostrarRutaCancion(bool esPremium, string nombreArtista, string ubicacionArchivo="/users/storage/Thomas/");
+    Artista* BuscarDueno(Cancion* x, Artista* Artistas,unsigned int cantArtist);
+    Album* BuscarAlbum(Cancion *x, Album* Albumes, unsigned int cantAlbumes);
 
 };
 

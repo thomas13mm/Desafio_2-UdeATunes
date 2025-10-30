@@ -3,6 +3,8 @@
 
 #include <metrica.h>
 #include <string>
+#include <album.h>
+#include <artista.h>
 
 using namespace std;
 
@@ -51,7 +53,8 @@ public:
     void SiguienteCancion();
     void AnteriorCancion();
     void RepetirCancionActual();
-    void ReproducirAutomaticamente(); // chronos
+    void ReproducirAutomaticamente(string ubicacion, Artista* Artistas, Album* Albumes,
+                                   unsigned int cantAlbumes, unsigned int cantArtistas); // chronos
     void ReproducirListaOrden();
     void ReproducirListaRandom();
     Usuario* BuscarUser(Usuario* Usuarios, unsigned int &tam_usuarios, string &nickname);
