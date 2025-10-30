@@ -2,6 +2,8 @@
 #include "listarp.h"
 #include <iostream>
 #include <chrono>
+#include <random>
+
 using namespace std;
 
 // Constructor por defecto
@@ -165,3 +167,56 @@ void Usuario::ReproducirAutomaticamente() {
 
     cout << "\n=== Fin de la reproducción automática ===\n";
 }
+
+void Usuario::ReproducirListaRandom() {
+
+    if (MiListaRP == nullptr) {
+        cout << "El usuario no tiene lista de reproducción.\n";
+        return;
+    }
+
+    Cancion** fav = MiListaRP->GetMisFavoritas();
+    if (fav == nullptr) {
+        cout << "No se encontraron canciones favoritas.\n";
+        return;
+    }
+
+    unsigned int tamUso = MiListaRP->GetTamEnUso();
+    if (tamUso == 0) {
+        cout << "No hay canciones en la lista.\n";
+        return;
+    }
+
+    cout << "=== Reproducción aleatoria iniciada ===\n";
+    cout << "(Escribe 0 y presiona Enter para detener)\n";
+
+    random_device rd;                      // semilla aleatoria
+    mt19937 gen(rd());                     // motor de generación (Mersenne Twister)
+    uniform_int_distribution<> dist(0, tamUso - 1);
+
+    while (true) {
+        unsigned int indice = dist(gen);
+
+        // si el puntero esta vacio, busca otro
+        while (fav[indice] == nullptr) {
+            indice = dist(gen);
+        }
+
+        MiListaRP->Reproducir(*fav[indice]);
+
+        // Ventana de 5 segundos o hasta que se ingrese "0"
+        auto inicio = chrono::steady_clock::now();
+        while (chrono::steady_clock::now() - inicio < chrono::seconds(5)) {
+            if (cin.rdbuf()->in_avail() > 0) {
+                string entrada;
+                getline(cin, entrada);
+                if (!entrada.empty() && entrada == "0") {
+                    cout << "\n=== Reproducción detenida por el usuario ===\n";
+                    return;
+                }
+            }
+        }
+    }
+}
+
+
