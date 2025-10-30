@@ -4,6 +4,7 @@
 #include <iostream>
 #include "cancion.h"
 #include "metrica.h"
+#include <anuncio.h>
 #include <usuario.h>
 
 using namespace std;
@@ -18,7 +19,7 @@ public:
     bool EliminarCancion(Cancion* n, Metrica &x);
     bool AgregarCancion(Cancion* n, Metrica &x);
     Cancion* TomarCancionPrevia();
-    bool Reproducir(Cancion &n, Usuario &x, string ubicacion, string artista, string album);
+    bool Reproducir(Cancion &n, Usuario &x, string ubicacion, string artista, string album, Anuncio* Anuncios);
     void MostrarLista();
 
     // --- Getters ---

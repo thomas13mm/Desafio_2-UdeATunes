@@ -3,6 +3,8 @@
 #include <iostream>
 #include <chrono>
 #include <album.h>
+#include <random>
+
 using namespace std;
 
 // Constructor por defecto
@@ -125,7 +127,7 @@ Usuario* Usuario::BuscarUser(Usuario* Usuarios, unsigned int &tam_usuarios, stri
 
 
 void Usuario::ReproducirAutomaticamente(string ubicacion, Artista* Artistas, Album* Albumes,
-                                        unsigned int cantAlbumes, unsigned int cantArtistas) {
+                                        unsigned int cantAlbumes, unsigned int cantArtistas, Anuncio* anuncios) {
 
     if (!MiListaRP) {
         cout << "No hay lista de reproduccion asociada.\n";
@@ -154,15 +156,71 @@ void Usuario::ReproducirAutomaticamente(string ubicacion, Artista* Artistas, Alb
 
         MiListaRP->Reproducir(*fav[i], *this,
                               ubicacion, fav[i]->BuscarDueno(fav[i],Artistas,cantArtistas)->getnombre(),
-                                fav[i]->BuscarAlbum(fav[i],Albumes,cantAlbumes)->getnombre());
+                                fav[i]->BuscarAlbum(fav[i],Albumes,cantAlbumes)->getnombre(), anuncios);
 
 
         reproducidas++;
 
         auto t0 = std::chrono::steady_clock::now();
-        while (std::chrono::steady_clock::now() - t0 < std::chrono::seconds(5)) {
+        while (std::chrono::steady_clock::now() - t0 < std::chrono::seconds(3)) {
         }
     }
 
     cout << "\n=== Fin de la reproduccion automatica ===\n";
 }
+
+void Usuario::ReproducirListaRandom(string ubicacion, Artista* Artistas, Album* Albumes,
+                                    unsigned int cantAlbumes, unsigned int cantArtistas, Anuncio* anuncios) {
+
+    if (MiListaRP == nullptr) {
+        cout << "El usuario no tiene lista de reproducción.\n";
+        return;
+    }
+
+    Cancion** fav = MiListaRP->GetMisFavoritas();
+    if (fav == nullptr) {
+        cout << "No se encontraron canciones favoritas.\n";
+        return;
+    }
+
+    unsigned int tamUso = MiListaRP->GetTamEnUso();
+    if (tamUso == 0) {
+        cout << "No hay canciones en la lista.\n";
+        return;
+    }
+
+    cout << "=== Reproducción aleatoria iniciada ===\n";
+    cout << "(Escribe 0 y presiona Enter para detener)\n";
+
+    random_device rd;                      // semilla aleatoria
+    mt19937 gen(rd());                     // motor de generación (Mersenne Twister)
+    uniform_int_distribution<> dist(0, tamUso - 1);
+
+    while (true) {
+        unsigned int indice = dist(gen);
+
+        // si el puntero esta vacio, busca otro
+        while (fav[indice] == nullptr) {
+            indice = dist(gen);
+        }
+
+        MiListaRP->Reproducir(*fav[indice], *this,
+                              ubicacion, fav[indice]->BuscarDueno(fav[indice],Artistas,cantArtistas)->getnombre(),
+                              fav[indice]->BuscarAlbum(fav[indice],Albumes,cantAlbumes)->getnombre(), anuncios);
+
+        // Ventana de 5 segundos o hasta que se ingrese "0"
+        auto inicio = chrono::steady_clock::now();
+        while (chrono::steady_clock::now() - inicio < chrono::seconds(5)) {
+            if (cin.rdbuf()->in_avail() > 0) {
+                string entrada;
+                getline(cin, entrada);
+                if (!entrada.empty() && entrada == "0") {
+                    cout << "\n=== Reproducción detenida por el usuario ===\n";
+                    return;
+                }
+            }
+        }
+    }
+}
+
+

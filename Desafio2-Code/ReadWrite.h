@@ -153,7 +153,6 @@ bool readArchivo(const char* fileName, Usuario*& Usuarios, unsigned int& numUsua
             bool esPremium = (membresia == "Premium");
 
             ListaRP* lista = nullptr;
-            if (esPremium) {
                 lista = new ListaRP(0,metrica);
                 // asociar canciones a la lista
                 for (unsigned int i = 0; i < 10000 && !codigos[i].empty(); i++) {
@@ -165,7 +164,6 @@ bool readArchivo(const char* fileName, Usuario*& Usuarios, unsigned int& numUsua
                     }
                     codigos[i] = ""; // limpiar
                 }
-            }
 
             Usuarios[indiceUsuario] = Usuario(nick, esPremium, ciudadPais, fecha, lista, metrica);
             indiceUsuario++;

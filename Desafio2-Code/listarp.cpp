@@ -1,5 +1,6 @@
 #include "listarp.h"
 #include <usuario.h>
+#include "utilidades.h"
 
 ListaRP::ListaRP(unsigned int TamEnUso_, Metrica &x)
     : TamEnUso(TamEnUso_)
@@ -62,8 +63,16 @@ Cancion* ListaRP::TomarCancionPrevia() {
     return &CancionesPrevias[indicePrevias];
 }
 
-bool ListaRP::Reproducir(Cancion &n, Usuario &x, string ubicacion, string artista, string album) {
+bool ListaRP::Reproducir(Cancion &n, Usuario &x, string ubicacion, string artista, string album,Anuncio* anuncios) {
+    static int contador = 0;
+    contador++;
+
+    if(!x.get_membresia() && contador % 2 == 0){
+        cout << anuncioRandom(anuncios)->GetMensaje_Publicitario() << '\n';
+        cout << "              Prioridad: "<<anuncioRandom(anuncios)->getPrioridadtext() << "\n\n";
+    }
     cout << "\n==========================\n"<<'\n';
+
     cout << "Reproduciendo:\n\n";
 
     cout << "               " << artista << '\n';

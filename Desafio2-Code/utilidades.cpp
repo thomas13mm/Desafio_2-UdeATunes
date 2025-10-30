@@ -1,8 +1,4 @@
-#ifndef LOGGIN_H
-#define LOGGIN_H
-#include <usuario.h>
-#include <metrica.h>
-#include <cancion.h>
+#include "utilidades.h"
 
 bool verificar_Existencia(string &nombre, Usuario* &Usuarios, unsigned int Cant_Usuarios, Metrica &x, Usuario* &ActualUser){
     for(unsigned int i = 0; i<Cant_Usuarios;i++){
@@ -34,6 +30,11 @@ Cancion* BuscarCancionPorID(Cancion* lista, unsigned int tam, string& idBuscado,
     return nullptr;
 }
 
+Anuncio* anuncioRandom(Anuncio* anuncios){
+    random_device rd;  // fuente de entropía
+    mt19937 gen(rd()); // generador Mersenne Twister
+    uniform_int_distribution<int> dist(0, 49); // rango 1 a 50
 
+    return &anuncios[dist(gen)];
+}
 
-#endif // LOGGIN_H

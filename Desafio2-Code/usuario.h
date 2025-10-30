@@ -5,6 +5,7 @@
 #include <string>
 #include <album.h>
 #include <artista.h>
+#include <anuncio.h>
 
 using namespace std;
 
@@ -54,9 +55,10 @@ public:
     void AnteriorCancion();
     void RepetirCancionActual();
     void ReproducirAutomaticamente(string ubicacion, Artista* Artistas, Album* Albumes,
-                                   unsigned int cantAlbumes, unsigned int cantArtistas); // chronos
+                                   unsigned int cantAlbumes, unsigned int cantArtistas,Anuncio* anuncios); // chronos
     void ReproducirListaOrden();
-    void ReproducirListaRandom();
+    void ReproducirListaRandom(string ubicacion, Artista* Artistas, Album* Albumes,
+                               unsigned int cantAlbumes, unsigned int cantArtistas, Anuncio* anuncios);
     Usuario* BuscarUser(Usuario* Usuarios, unsigned int &tam_usuarios, string &nickname);
 };
 
