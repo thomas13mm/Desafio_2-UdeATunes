@@ -189,21 +189,28 @@ void Usuario::ReproducirListaRandom(string ubicacion, Artista* Artistas, Album* 
         return;
     }
 
-    cout << "=== Reproducción aleatoria iniciada ===\n";
-    cout << "(Escribe 0 y presiona Enter para detener)\n";
+    cout << "=== Reproducción aleatoria manual ===\n";
+    cout << "Presiona ENTER para reproducir una canción aleatoria.\n";
+    cout << "Escribe 0 y presiona ENTER para detener.\n\n";
 
-    random_device rd;                      // semilla aleatoria
-    mt19937 gen(rd());                     // motor de generación (Mersenne Twister)
+    random_device rd;
+    mt19937 gen(rd());
     uniform_int_distribution<> dist(0, tamUso - 1);
 
+    string entrada;
     while (true) {
-        unsigned int indice = dist(gen);
+        cout << ">>> ";
+        getline(cin, entrada);
 
-        // si el puntero esta vacio, busca otro
+        if (entrada == "0") {
+            cout << "\n=== Reproducción detenida ===\n";
+            break;
+        }
+
+        unsigned int indice = dist(gen);
         while (fav[indice] == nullptr) {
             indice = dist(gen);
         }
-
         MiListaRP->Reproducir(*fav[indice], *this,
                               ubicacion, fav[indice]->BuscarDueno(fav[indice],Artistas,cantArtistas)->getnombre(),
                               fav[indice]->BuscarAlbum(fav[indice],Albumes,cantAlbumes)->getnombre(), anuncios);
@@ -222,5 +229,4 @@ void Usuario::ReproducirListaRandom(string ubicacion, Artista* Artistas, Album* 
         }
     }
 }
-
 
